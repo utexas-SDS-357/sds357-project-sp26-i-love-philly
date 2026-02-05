@@ -1,0 +1,277 @@
+---
+title: "I <3 Philly"
+author: "MAJIC V"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+library(tidyverse)
+data = read.csv("philly.csv")
+datacopy = data
+
+arrestdata = data %>%
+  filter(arrest_made == TRUE)
+arrestdatacopy = arrestdata
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+summary(data)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data$date = as.Date(data$date)
+ggplot(data, aes(x = date)) +
+  geom_histogram(binwidth = 50, fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Dates",
+       x = "Date",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data$timeSec = period_to_seconds(hms(data$time))
+ggplot(data, aes(x = timeSec)) +
+  geom_histogram(binwidth = 1500, fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Time",
+       x = "Time",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+#ggplot(data, aes(x = lng, y = lat)) +
+#  stat_density_2d(aes(fill = after_stat(level)), 
+#                  geom = "polygon", alpha = 0.6) +
+#  scale_fill_viridis_c() +
+#  coord_fixed() +
+#  labs(title = "Location Density Heat Map",
+#       x = "Longitude",
+#       y = "Latitude",
+#       fill = "Density") +
+#  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data %>%
+  count(district) %>%
+  filter(n > 0) %>%
+  mutate(district = as.numeric(district)) %>%
+  arrange(district) %>%
+  mutate(district = factor(district, levels = rev(district))) %>% 
+  ggplot(aes(x = district, y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  coord_flip() +
+  labs(title = "Distribution of District",
+       x = "District",
+       y = "Count") +
+  theme_minimal()
+
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+age = data %>%
+  count(subject_age)
+
+ggplot(age, aes(x = subject_age, y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Distribution by Age",
+       x = "Age",
+       y = "Count") +
+  theme_minimal()
+
+summary(data$subject_age)
+
+tail(age, 5)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+race = data %>%
+  count(subject_race) %>%
+  arrange(n)
+
+ggplot(race, aes(x = reorder(subject_race, -n), y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Race",
+       x = "Race",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data %>%
+  count(subject_sex) %>%
+  ggplot(aes(x = reorder(subject_sex, -n), y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Sex",
+       x = "Sex",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data %>%
+  count(type) %>%
+  ggplot(aes(x = reorder(type, -n), y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Stop Type",
+       x = "Type",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data %>%
+  count(frisk_performed) %>%
+  ggplot(aes(x = reorder(frisk_performed, n), y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Frisk vs No Frisk",
+       x = "Frisk Performed",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data %>%
+  count(search_conducted) %>%
+  ggplot(aes(x = reorder(search_conducted, n), y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Search vs No Search",
+       x = "Search Performed",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data %>%
+  count(frisk_performed, search_conducted) %>%
+  group_by(frisk_performed) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(aes(x = reorder(frisk_performed, n), y = prop, 
+             fill = reorder(search_conducted, n))) +
+  geom_col(color = "black") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("TRUE" = "steelblue", "FALSE" = "grey")) +
+  labs(title = "Frisk to Search Pipeline",
+       x = "Frisk Conducted",
+       y = "Percentage",
+       fill = "Search Conducted") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+searchConducted = data %>%
+  filter(search_conducted == TRUE) %>%
+  mutate(search_type = case_when(
+    search_person == TRUE & search_vehicle == FALSE ~ "Person Only",
+    search_person == FALSE & search_vehicle == TRUE ~ "Vehicle Only",
+    search_person == TRUE & search_vehicle == TRUE ~ "Person & Vehicle",
+    TRUE ~ NA_character_)) %>%
+  filter(!is.na(search_type))
+
+ggplot(searchConducted, aes(x = search_type)) +
+  geom_bar(fill = "steelblue", color = "black") +
+  labs(title = "Frequency of Search Conducted (Among Searches)",
+       x = "Search Type",
+       y = "Count") +
+  theme_minimal()
+
+searchType = searchConducted %>%
+  count(search_type) %>%
+  mutate(prop = n / sum(n))
+
+ggplot(searchType, aes(x = search_type, y = prop)) +
+  geom_col(fill = "steelblue", color = "black") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Distribution of Search Types (Among Searches)",
+       x = "Search Type",
+       y = "Percentage") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data %>%
+  count(contraband_found) %>%
+  ggplot(aes(x = reorder(contraband_found, n), y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Contraband Found",
+       x = "Contraband Found",
+       y = "Count") +
+  theme_minimal()
+```
+NA means there was no search conducted
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+searchConducted %>%
+  count(contraband_found) %>%
+  ggplot(aes(x = reorder(contraband_found, n), y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Contraband Found",
+       x = "Contraband Found",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+contrabandFound = data %>%
+  filter(contraband_found == TRUE) %>%
+  mutate(contraband_location = case_when(
+    raw_individual_contraband == TRUE & 
+      raw_vehicle_contraband == FALSE ~ "Person Only",
+    raw_individual_contraband == FALSE & 
+      raw_vehicle_contraband == TRUE ~ "Vehicle Only",
+    raw_individual_contraband == TRUE & 
+      raw_vehicle_contraband == TRUE ~ "Person & Vehicle",
+    TRUE ~ NA_character_)) %>%
+  filter(!is.na(contraband_found))
+
+ggplot(contrabandFound, aes(x = contraband_location)) +
+  geom_bar(fill = "steelblue", color = "black") +
+  labs(title = "Frequency of Contraband Location (Among Searches)",
+       x = "Contraband Location",
+       y = "Count") +
+  theme_minimal()
+
+contrabandLocation = contrabandFound %>%
+  count(contraband_location) %>%
+  mutate(prop = n / sum(n))
+
+ggplot(contrabandLocation, aes(x = contraband_location, y = prop)) +
+  geom_col(fill = "steelblue", color = "black") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(title = "Distribution of Contraband Location (Among Searches)",
+       x = "Contraband Location",
+       y = "Percentage") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+data %>%
+  count(arrest_made) %>%
+  ggplot(aes(x = reorder(arrest_made, n), y = n)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Arrests Made",
+       x = "Arrest Made",
+       y = "Count") +
+  theme_minimal()
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='show'}
+searchConducted %>%
+  count(contraband_found, arrest_made) %>%
+  group_by(contraband_found) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(aes(x = reorder(contraband_found, n), y = prop, 
+             fill = reorder(arrest_made, -n))) +
+  geom_col(position = "stack", color = "black") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("TRUE" = "steelblue", "FALSE" = "grey")) +
+  labs(title = "Arrest Outcomes by Contraband Discovery (Among Searches)",
+       x = "Contraband Found",
+       y = "Percentage",
+       fill = "Arrest Made") +
+  theme_minimal()
+```
