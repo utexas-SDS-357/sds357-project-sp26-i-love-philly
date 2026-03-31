@@ -24,3 +24,11 @@ This project aims to investigate whether the “Philly will burn” stereotype i
     Evaluate whether major sporting events are associated with statistically significant changes in traffic stop outcomes. 
 
 Ultimately, this project seeks to assess whether widely held perceptions of Philadelphia sports culture are grounded in real data or driven primarily by anecdotal evidence.
+
+
+### Assumptions and Limitations
+
+- Police stop data may reflect policing behavior rather than public behavior
+- Not all game-day activity is localized near stadiums
+- External factors (weather, holidays, concurrent events) are not fully controlled
+- Data completeness and reporting inconsistencies may affect results
