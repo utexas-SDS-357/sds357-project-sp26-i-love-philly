@@ -5,4 +5,5 @@ This folder contains all notebooks, files and visualizations related to our Anal
 - eagles.ipynb: [Add Explanation]
 - eagles_square_visualizaton.ipynb: [Add Explanation]
 - eda_all_teams.ipynb: [Add Explanation]
-- gameday_vs_nongameday_analysis.ipynb: [Add Explanation]
+- gameday_vs_nongameday_analysis.ipynb: Analysis of traffic and arrest counts and distributions on gamedays and non-gamedays. Plots from this notebook are in our report.
+- gameday_outcome_analysis.ipynb: Analysis of traffic patterns for all sports across W/L outcomes.

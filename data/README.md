@@ -1,1 +1,1 @@
-This is our final data, after data cleaning and wrangling.
+This folder contains our final datasets, after data cleaning and wrangling.
