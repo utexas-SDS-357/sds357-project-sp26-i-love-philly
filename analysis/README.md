@@ -1,6 +1,6 @@
 This folder contains all notebooks, files and visualizations related to our Analysis and Exploratory Data Exploration Process
 - AdditionalEDA.ipynb: Notebook contains exploration and visualizations of Arrests, Searches, Frisks and additional information from the Policing Data bsed on game type (Home Games, Away games, Any Event, No Games).
-- PhillyEDA.Rmd: Quick overview of our Philly dataset
+- PhillyEDA.Rmd: R code for basic data wrangling
 - PhillyEDA.pdf: [Add Explanation]
 - eagles.ipynb: Data Wrangling of our Eagles dataset
 - eagles_square_visualizaton.ipynb: [Add Explanation]
