@@ -1,1 +1,1 @@
-This is our raw data and our cleaning scripts for the files to standardize our data.
+These are the Jupyter Notebook files that we used to clean and wrangle our data

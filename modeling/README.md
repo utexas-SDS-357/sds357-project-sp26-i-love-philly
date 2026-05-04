@@ -1,1 +1,1 @@
-This is where all our modeling is. So far, we've experimented with linear regression, and the circle + square regions.
+This folder contains our modeling code referred to in the final report.
