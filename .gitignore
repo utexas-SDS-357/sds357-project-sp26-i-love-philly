@@ -1,9 +1,9 @@
 # datasets
-data/DATA_WITH_DISTANCES.csv
-data/DATA_WITH_DISTANCES_KM.csv
-data/PHILLY_STOPS_DATA_WITH_GAME_INDICATORS.csv
-data/map_with_radii.html
-data/pa_philadelphia_2020_04_01.csv
+datasets/DATA_WITH_DISTANCES.csv
+datasets/DATA_WITH_DISTANCES_KM.csv
+datasets/PHILLY_STOPS_DATA_WITH_GAME_INDICATORS.csv
+datasets/map_with_radii.html
+datasets/pa_philadelphia_2020_04_01.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
