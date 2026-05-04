@@ -46,7 +46,7 @@ Ultimately, this project seeks to assess whether widely held perceptions of Phil
 │   ├── gameday_outcome_analysis.ipynb: Analysis of traffic patterns for all sports across W/L outcomes.
 │   └── gameday_vs_nongameday_analysis.ipynb: Analysis of traffic and arrest counts and distributions on 
 │                gamedays and non-gamedays. Plots from this notebook are in our report.
-├── README.md: The current files detailing the repository structure and project overview
+├── README.md: The current file detailing the repository structure and project overview
 ├── archive: This folder contains archived materials. These materials were created in the early stages of the project 
 │               and were not used for any final data exploration, wrangling, or modeling. These files are being 
 │                stored in case they need to be referenced during code development in the future.
