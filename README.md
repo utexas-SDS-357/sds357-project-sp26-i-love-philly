@@ -27,3 +27,66 @@ Ultimately, this project seeks to assess whether widely held perceptions of Phil
 
 - Stadium-specific security data is not available
 - External factors (weather, holidays, concurrent events) are not accounted for in the data
+
+## File Structure
+
+<pre> ```
+── EDA
+│   ├── AdditionalEDA.ipynb
+│   ├── PhillyEDA.Rmd
+│   ├── PhillyEDA.pdf
+│   ├── README.md
+│   ├── eagles.ipynb
+│   ├── eagles_square_visualization.ipynb
+│   ├── eda_all_teams.ipynb
+│   ├── gameday_outcome_analysis.ipynb
+│   └── gameday_vs_nongameday_analysis.ipynb
+├── README.md
+├── archive
+│   ├── README.md
+│   ├── SOPPwithSports.ipynb
+│   ├── eagles_circle_model.ipynb
+│   ├── eagles_data_wrangling_circles.ipynb
+│   ├── linReg_eagles.ipynb
+│   ├── maps
+│   │   ├── README.md
+│   │   ├── all_stops.html
+│   │   ├── eagles_gameday_ped_stop_density.html
+│   │   ├── eagles_gameday_ped_stop_w5_density.html
+│   │   ├── eagles_gameday_stop_density.html
+│   │   ├── eagles_gameday_stops_w5_density.html
+│   │   ├── eagles_nongameday_SAMPLED_stop_density.html
+│   │   └── eagles_nongameday_stop_density.html
+│   ├── prelim.ipynb
+│   └── test_merging_data_eagles.ipynb
+├── data_cleaning_and_wrangling
+│   ├── CleaningScript.ipynb
+│   ├── DATA_FILTER.ipynb
+│   ├── README.md
+│   ├── data_cleanse.ipynb
+│   ├── eagles_data_wrangling.ipynb
+│   ├── flyers_data_wrangling.ipynb
+│   ├── location_mapping.ipynb
+│   ├── phillies_data_wrangling.ipynb
+│   └── philly76_data_wrangling.ipynb
+├── datasets
+│   ├── README.md
+│   ├── input
+│   │   ├── Eagles Schedule & Scores - Eagles.csv
+│   │   ├── Flyers.csv
+│   │   ├── Phillies_Schedule_Updated_2.csv
+│   │   ├── Philly76.csv
+│   │   └── Venue Locations.csv
+│   └── output
+│       ├── cleaned76ersData.csv
+│       ├── cleanedEaglesData.csv
+│       ├── cleanedFlyersData.csv
+│       └── cleanedPhilliesData.csv
+└── modeling
+    ├── README.md
+    ├── eagles_square_model.ipynb
+    ├── flyers_modeling.ipynb
+    ├── phillies_modeling.ipynb
+    └── philly76_modeling.ipynb
+
+``` </pre>
