@@ -68,7 +68,7 @@ Ultimately, this project seeks to assess whether widely held perceptions of Phil
 │   ├── phillies_data_wrangling.ipynb: Combines the Phillies data with SOPP data and transforms data to prepare for 
 │   │       modeling
 │   └── philly76_data_wrangling.ipynb: Combines the 76ers data with SOPP data and transforms data to prepare for 
-│   │       modeling
+│          modeling
 ├── datasets
 │   ├── README.md: Describes the contents of the datasets folder
 │   ├── input: Folder containing raw sport schedule and game outcome data.
