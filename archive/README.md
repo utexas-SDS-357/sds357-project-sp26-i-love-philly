@@ -1,0 +1,1 @@
+This folder contains archived materials. These materials were created in the early stages of the project and were not used for any final data exploration, wrangling, or modeling. These files are being stored in case they need to be referenced during code development in the future.
